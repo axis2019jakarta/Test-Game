@@ -4,13 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Nabila Tracking Official</title>
-    <!-- Path ke CSS sudah benar -->
-    <link rel="stylesheet" href="style.css"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- ====================================================== -->
+    <!-- === BAGIAN CSS (DESAIN & TAMPILAN) === -->
+    <!-- ====================================================== -->
+    <style>
+        /* General Styling */
+        :root {
+            --primary-color: #D4AF37; /* Aksen Emas */
+            --secondary-color: #1E2A3A;
+            --background-color: #12181F;
+            --card-color: #1A2027;
+            --text-color: #E2E8F0;
+            --text-muted-color: #A0AEC0;
+            --positive-color: #48BB78;
+            --negative-color: #F56565;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem 2rem 2rem;
+        }
+        
+        /* Notification Ticker */
+        .notification-ticker {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            padding: 0.5rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .notification-ticker p {
+            margin: 0;
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker-scroll 25s linear infinite;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--card-color);
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 700; }
+        .logo span { color: var(--primary-color); font-weight: 400; }
+        .main-nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        .main-nav li { margin-left: 2rem; }
+        .main-nav a { text-decoration: none; color: var(--text-muted-color); font-weight: 600; transition: color 0.3s ease; }
+        .main-nav a:hover, .main-nav a.active { color: var(--primary-color); }
+
+        /* Buttons */
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background-color: var(--primary-color); color: var(--background-color); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); }
+        .btn-secondary { background-color: transparent; color: var(--text-color); border: 1px solid var(--secondary-color); }
+        .btn-secondary:hover { background-color: var(--secondary-color); }
+        .btn-full { width: 100%; margin-top: 1rem; padding: 0.8rem; background-color: var(--primary-color); color: var(--background-color);}
+
+        /* Welcome Banner */
+        .welcome-banner { background: linear-gradient(90deg, var(--secondary-color), var(--card-color)); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .welcome-banner h1 { margin: 0; color: #fff; }
+
+        /* Dashboard Grid & Cards */
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; grid-template-areas: "portfolio news" "watchlist news"; gap: 1.5rem; }
+        .card { background-color: var(--card-color); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--secondary-color); }
+        .portfolio-summary { grid-area: portfolio; }
+        .watchlist { grid-area: watchlist; }
+        .market-news { grid-area: news; }
+        .card h3 { margin-top: 0; color: var(--primary-color); border-bottom: 1px solid var(--secondary-color); padding-bottom: 0.5rem; }
+
+        /* Portfolio Card */
+        .portfolio-value { font-size: 2.5rem; font-weight: 700; }
+        .portfolio-change { font-size: 1.2rem; margin-bottom: 1rem; }
+        .positive { color: var(--positive-color); }
+        .negative { color: var(--negative-color); }
+        .stable { color: var(--text-muted-color); }
+        .chart-placeholder { height: 150px; background-color: var(--background-color); display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 1rem; }
+
+        /* Watchlist Styling (INTERAKTIF) */
+        .watchlist ul { list-style: none; padding: 0; }
+        .watchlist li { display: flex; justify-content: space-between; padding: 0.75rem; border-radius: 8px; border-bottom: 1px solid var(--secondary-color); transition: background-color 0.2s ease; cursor: pointer; }
+        .watchlist li:hover { background-color: var(--secondary-color); }
+        .watchlist .stock-code { font-weight: 600; }
+
+        /* WhatsApp Bubble */
+        .whatsapp-bubble { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); transition: transform 0.3s ease; z-index: 999;}
+        .whatsapp-bubble:hover { transform: scale(1.1); }
+        .whatsapp-bubble img { width: 35px; height: 35px; }
+
+        /* Footer */
+        .main-footer { text-align: center; padding: 2rem; margin-top: 2rem; background-color: var(--card-color); color: var(--text-muted-color); font-size: 0.9rem; }
+        .risk-warning { margin: 1rem auto; max-width: 600px; color: var(--primary-color); font-style: italic; }
+
+        /* Modal Deposit */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 1; transition: opacity 0.3s ease; }
+        .modal-overlay.hidden { opacity: 0; pointer-events: none; }
+        .modal-content { background-color: var(--card-color); padding: 2rem; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; position: relative; transform: scale(1); transition: transform 0.3s ease; }
+        .modal-overlay.hidden .modal-content { transform: scale(0.9); }
+        .close-button { position: absolute; top: 10px; right: 15px; background: none; border: none; color: var(--text-muted-color); font-size: 2rem; cursor: pointer; }
+        .modal-content h3 { color: var(--primary-color); margin-top: 0; }
+        .modal-instruction { color: var(--text-muted-color); margin-bottom: 1.5rem; }
+        .qr-code-container img { max-width: 80%; height: auto; border-radius: 16px; border: 4px solid var(--secondary-color); }
+        .gopay-details { background-color: var(--background-color); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .gopay-name { font-size: 1.2rem; font-weight: 600; color: var(--text-color); }
+        .gopay-number { font-size: 1rem; color: var(--text-muted-color); }
+    </style>
 </head>
 <body>
+
+    <!-- Notifikasi Berjalan (Fitur Baru) -->
+    <div class="notification-ticker">
+        <p>
+            SELAMAT DATANG DI NABILA TRACKING OFFICIAL ••• MINIMAL DEPOSIT HANYA RP 10.000 ••• PROMO SPESIAL: BEBAS BIAYA KOMISI UNTUK 10 TRANSAKSI PERTAMA! ••• 
+        </p>
+    </div>
 
     <header class="main-header">
         <div class="logo">Nabila Tracking <span>Official</span></div>
@@ -30,11 +161,6 @@
     </header>
 
     <main class="container">
-        <section class="welcome-banner">
-            <h1>Selamat Datang Kembali, Investor!</h1>
-            <p>Pasar selalu bergerak. Temukan peluang investasi terbaik Anda hari ini dengan data yang transparan dan akurat.</p>
-        </section>
-
         <section class="dashboard-grid">
             <div class="card portfolio-summary">
                 <h3>Ringkasan Portofolio</h3>
@@ -46,16 +172,12 @@
 
             <div class="card watchlist">
                 <h3>Daftar Pantau (Watchlist)</h3>
-                <!-- List saham akan diisi oleh JavaScript di sini -->
-                <ul id="watchlist-container"></ul> 
-                <input type="text" placeholder="Cari & tambah saham...">
+                <ul id="watchlist-container"></ul>
             </div>
 
             <div class="card market-news">
                 <h3>Berita Pasar Terkini</h3>
-                <!-- Berita akan diisi oleh JavaScript di sini -->
                 <div id="news-container"></div>
-                <a href="#" class="view-all">Lihat Semua Berita</a>
             </div>
         </section>
     </main>
@@ -64,31 +186,108 @@
         <div class="modal-content">
             <button id="close-modal-btn" class="close-button">×</button>
             <h3>Deposit via GoPay</h3>
-            <p class="modal-instruction">Scan kode QR di bawah ini menggunakan aplikasi GoJek atau GoPay Anda.</p>
+            <p class="modal-instruction">Scan kode QR di bawah ini dari aplikasi GoPay atau Gojek.</p>
             <div class="qr-code-container">
-                <!-- Path ke gambar sudah benar -->
-                <img src="images/gopay_qr.png" alt="GoPay QR Code">
+                <!-- 
+                ========================================================================
+                !!! PENTING !!! GANTI TULISAN DI BAWAH INI DENGAN KODE BASE64 GAMBAR QR ANDA
+                ========================================================================
+                -->
+                <img src="GANTI_DENGAN_KODE_BASE64_ANDA_DISINI" alt="GoPay QR Code">
             </div>
             <div class="gopay-details">
                 <div class="gopay-name">Buelloh bhogel</div>
                 <div class="gopay-number">0895340205302</div>
             </div>
-            <div class="deposit-info">Minimal Deposit: <strong>Rp 10.000</strong></div>
         </div>
     </div>
 
     <div class="whatsapp-bubble" id="whatsapp-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjM1IiBoZWlnaHQ9IjM1IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTE2IDJDOC4yIDIgMiA4LjIgMiAxNnM2LjIgMTQgMTQgMTQgMTQtNi4yIDE0LTE0UzIzLjggMiAxNiAyek0yMy4zIDE5LjJjLS4zLS4xLTEuNi0uOC0xLjktLjljLS4zLS4xLS41LS4xLS43LjEtLjIgLjMtLjYuOC0uOCAxLS4yLjItLjMuMy0uNi4xLS4zLS4yLTEuMS0uNC0yLjEtMS4zLS44LS43LTEuMy0xLjUtMS41LTIuMS0uMi0uMyAwLS41LjEtLjYgLjEtLjItLjMtLjUtLjQtLjZzLS4yLS4zLS40LS40LS41LS4xLS43LS4xSCAxNGMtLjMgMC0uNy4zLTEgLjctLjQuMy0xLjUgMS41LTEuNSAzLjhzMS41IDQuNCAxLjggNC43YzAgLjMgMy4yIDQuOCA3LjcgNi41IDEuMS40IDEuOS42IDIuNS44LjcuMiAxLjQuMSAyLjEtLjFzMS42LS43IDEuOS0xLjM6YzAgLjctLjEgMS4yLS4zIDEuMy0uMi4xLS41LjItLjcuM3oiLz48L3N2Zz4=" alt="WhatsApp Icon">
     </div>
-
+    
     <footer class="main-footer">
-        <div class="footer-content">
-            <p>© 2025 Nabila Tracking Official. Semua hak dilindungi undang-undang.</p>
-            <p class="risk-warning"><strong>Peringatan Risiko:</strong> Semua instrumen investasi memiliki risiko. Buatlah keputusan secara bijak.</p>
-        </div>
+        <p class="risk-warning"><strong>Peringatan Risiko:</strong> Semua instrumen investasi memiliki risiko. Buatlah keputusan secara bijak.</p>
     </footer>
 
-    <!-- Path ke JavaScript sudah benar -->
-    <script src="script.js"></script> 
+    <!-- ====================================================== -->
+    <!-- === BAGIAN JAVASCRIPT (LOGIKA & INTERAKSI) === -->
+    <!-- ====================================================== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const fakeStockData = [
+            { code: 'BBCA', name: 'Bank Central Asia', price: '9.850', change: 1.25, status: 'positive' },
+            { code: 'TLKM', name: 'Telkom Indonesia', price: '3.800', change: -0.52, status: 'negative' },
+            { code: 'GOTO', name: 'GoTo Gojek Tokopedia', price: '88', change: 0.00, status: 'stable' },
+            { code: 'ASII', name: 'Astra International', price: '5.200', change: 2.45, status: 'positive' },
+            { code: 'BREN', name: 'Barito Renewables Energy', price: '7.500', change: -1.50, status: 'negative' }
+        ];
+
+        const fakeNewsData = [
+            { title: "IHSG Dibuka Menguat di Awal Sesi Perdagangan", excerpt: "Sentimen positif dari pasar global mendorong bursa domestik..." },
+            { title: "Sektor Teknologi Menjadi Penggerak Utama Pasar", excerpt: "Saham-saham berbasis teknologi mencatatkan kenaikan signifikan..." },
+            { title: "Harga Komoditas Energi Kembali Melonjak Tajam", excerpt: "Kenaikan permintaan global menjadi pemicu utama..." }
+        ];
+
+        const watchlistContainer = document.getElementById('watchlist-container');
+        const newsContainer = document.getElementById('news-container');
+
+        // Render Daftar Saham (Watchlist)
+        if (watchlistContainer) {
+            watchlistContainer.innerHTML = ''; // Kosongkan dulu
+            fakeStockData.forEach(stock => {
+                const changeText = stock.status === 'stable' ? '0.00%' : `${stock.change > 0 ? '+' : ''}${stock.change.toFixed(2)}%`;
+                const listItem = document.createElement('li');
+                listItem.dataset.stockCode = stock.code; // Simpan kode saham untuk interaksi
+                listItem.dataset.stockName = stock.name;
+                listItem.innerHTML = `
+                    <span class="stock-code">${stock.code}</span>
+                    <span class="stock-price">Rp ${stock.price}</span>
+                    <span class="stock-change ${stock.status}">${changeText}</span>
+                `;
+                watchlistContainer.appendChild(listItem);
+            });
+        }
+
+        // Render Berita
+        if (newsContainer) {
+            newsContainer.innerHTML = '';
+            fakeNewsData.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.innerHTML = `<div class="news-item"><h4>${news.title}</h4><p>${news.excerpt}</p></div>`;
+                newsContainer.appendChild(newsItem);
+            });
+        }
+        
+        // INTERAKSI: Membuat daftar saham bisa diklik
+        if (watchlistContainer) {
+            watchlistContainer.addEventListener('click', function(event) {
+                const clickedItem = event.target.closest('li');
+                if (clickedItem) {
+                    const stockCode = clickedItem.dataset.stockCode;
+                    const stockName = clickedItem.dataset.stockName;
+                    alert(`ANDA MENGKLIK SAHAM: ${stockCode} (${stockName})\n\nDi aplikasi nyata, ini akan membuka halaman detail saham.`);
+                }
+            });
+        }
+
+        // Logika untuk Modal (Pop-up) Deposit
+        const depositModal = document.getElementById('deposit-modal');
+        const openModalBtn = document.getElementById('deposit-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        if(openModalBtn) openModalBtn.addEventListener('click', () => depositModal.classList.remove('hidden'));
+        if(closeModalBtn) closeModalBtn.addEventListener('click', () => depositModal.classList.add('hidden'));
+        if(depositModal) depositModal.addEventListener('click', e => { if (e.target === depositModal) depositModal.classList.add('hidden'); });
+        
+        // Logika Tombol WhatsApp
+        const whatsappButton = document.getElementById('whatsapp-btn');
+        if (whatsappButton) {
+            whatsappButton.addEventListener('click', () => {
+                window.open(`https://wa.me/6285810526151?text=${encodeURIComponent('Halo Admin Nabila Tracking Official, saya butuh bantuan.')}`, '_blank');
+            });
+        }
+    });
+    </script>
 </body>
 </html>
