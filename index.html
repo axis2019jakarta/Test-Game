@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Nabila Tracking Official</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Path ke CSS sudah benar -->
+    <link rel="stylesheet" href="style.css"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -24,13 +25,11 @@
         </nav>
         <div class="user-menu">
             <button class="btn btn-secondary">Profil Akun</button>
-            <!-- Menambahkan ID pada tombol Deposit -->
             <button id="deposit-btn" class="btn btn-primary">Deposit</button>
         </div>
     </header>
 
     <main class="container">
-        <!-- ... (Konten utama tetap sama seperti sebelumnya) ... -->
         <section class="welcome-banner">
             <h1>Selamat Datang Kembali, Investor!</h1>
             <p>Pasar selalu bergerak. Temukan peluang investasi terbaik Anda hari ini dengan data yang transparan dan akurat.</p>
@@ -41,94 +40,55 @@
                 <h3>Ringkasan Portofolio</h3>
                 <div class="portfolio-value">Rp 15.750.000</div>
                 <div class="portfolio-change positive">+ Rp 250.000 (1.61%) Hari Ini</div>
-                <div class="chart-placeholder">
-                    <p>Grafik Pertumbuhan Portofolio Akan Tampil Di Sini</p>
-                </div>
+                <div class="chart-placeholder"><p>Grafik Pertumbuhan Portofolio</p></div>
                 <button class="btn btn-full">Lihat Detail Portofolio</button>
             </div>
 
             <div class="card watchlist">
                 <h3>Daftar Pantau (Watchlist)</h3>
-                <ul>
-                    <li>
-                        <span class="stock-code">BBCA</span>
-                        <span class="stock-price">Rp 9.850</span>
-                        <span class="stock-change positive">+1.25%</span>
-                    </li>
-                    <li>
-                        <span class="stock-code">TLKM</span>
-                        <span class="stock-price">Rp 3.800</span>
-                        <span class="stock-change negative">-0.52%</span>
-                    </li>
-                    <li>
-                        <span class="stock-code">GOTO</span>
-                        <span class="stock-price">Rp 88</span>
-                        <span class="stock-change stable">0.00%</span>
-                    </li>
-                    <li>
-                        <span class="stock-code">ASII</span>
-                        <span class="stock-price">Rp 5.200</span>
-                        <span class="stock-change positive">+2.45%</span>
-                    </li>
-                </ul>
+                <!-- List saham akan diisi oleh JavaScript di sini -->
+                <ul id="watchlist-container"></ul> 
                 <input type="text" placeholder="Cari & tambah saham...">
             </div>
 
             <div class="card market-news">
                 <h3>Berita Pasar Terkini</h3>
-                <div class="news-item">
-                    <h4>IHSG Dibuka Menguat di Awal Sesi Perdagangan</h4>
-                    <p>Sentimen positif dari pasar global mendorong bursa domestik...</p>
-                </div>
-                <div class="news-item">
-                    <h4>Sektor Teknologi Menjadi Penggerak Utama Pasar</h4>
-                    <p>Saham-saham berbasis teknologi mencatatkan kenaikan signifikan...</p>
-                </div>
+                <!-- Berita akan diisi oleh JavaScript di sini -->
+                <div id="news-container"></div>
                 <a href="#" class="view-all">Lihat Semua Berita</a>
             </div>
         </section>
     </main>
     
-    <!-- === STRUKTUR MODAL DEPOSIT (BARU) === -->
     <div id="deposit-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <button id="close-modal-btn" class="close-button">&times;</button>
+            <button id="close-modal-btn" class="close-button">×</button>
             <h3>Deposit via GoPay</h3>
             <p class="modal-instruction">Scan kode QR di bawah ini menggunakan aplikasi GoJek atau GoPay Anda.</p>
-            
             <div class="qr-code-container">
-                <!-- Pastikan gambar bernama 'gopay_qr.png' ada di folder yang sama -->
-                <img src="gopay_qr.png" alt="GoPay QR Code">
+                <!-- Path ke gambar sudah benar -->
+                <img src="images/gopay_qr.png" alt="GoPay QR Code">
             </div>
-
             <div class="gopay-details">
                 <div class="gopay-name">Buelloh bhogel</div>
                 <div class="gopay-number">0895340205302</div>
             </div>
-            <div class="deposit-info">
-                Minimal Deposit: <strong>Rp 10.000</strong>
-            </div>
+            <div class="deposit-info">Minimal Deposit: <strong>Rp 10.000</strong></div>
         </div>
     </div>
-    <!-- === AKHIR DARI MODAL DEPOSIT === -->
 
     <div class="whatsapp-bubble" id="whatsapp-btn">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
     </div>
 
     <footer class="main-footer">
-        <!-- ... (Konten footer tetap sama seperti sebelumnya) ... -->
         <div class="footer-content">
-            <p>&copy; 2025 Nabila Tracking Official. Semua hak dilindungi undang-undang.</p>
-            <p class="risk-warning"><strong>Peringatan Risiko:</strong> Aktivitas trading dan investasi memiliki risiko kerugian. Kinerja masa lalu tidak mencerminkan hasil di masa depan. Buatlah keputusan secara bijak.</p>
-            <nav class="footer-nav">
-                <a href="#">Tentang Kami</a> |
-                <a href="#">Syarat & Ketentuan</a> |
-                <a href="#">Pusat Bantuan</a>
-            </nav>
+            <p>© 2025 Nabila Tracking Official. Semua hak dilindungi undang-undang.</p>
+            <p class="risk-warning"><strong>Peringatan Risiko:</strong> Semua instrumen investasi memiliki risiko. Buatlah keputusan secara bijak.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Path ke JavaScript sudah benar -->
+    <script src="script.js"></script> 
 </body>
 </html>
