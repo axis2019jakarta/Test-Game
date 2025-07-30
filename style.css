@@ -1,0 +1,93 @@
+/* ... (Semua style sebelumnya tetap sama) ... */
+
+/* === STYLE UNTUK MODAL DEPOSIT (BARU) === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background-color: var(--card-color);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: scale(0.9);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-muted-color);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.modal-content h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.modal-instruction {
+    color: var(--text-muted-color);
+    margin-bottom: 1.5rem;
+}
+
+.qr-code-container {
+    margin-bottom: 1.5rem;
+}
+
+.qr-code-container img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 16px;
+    border: 4px solid var(--secondary-color);
+}
+
+.gopay-details {
+    background-color: var(--background-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.gopay-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.gopay-number {
+    font-size: 1rem;
+    color: var(--text-muted-color);
+}
+
+.deposit-info {
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+}
